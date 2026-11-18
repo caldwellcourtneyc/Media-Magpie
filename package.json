@@ -1,0 +1,31 @@
+{
+  "name": "media-log",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "setup": "node scripts/setup.mjs",
+    "dev": "node scripts/setup.mjs && next dev -p 3456",
+    "build": "next build",
+    "start": "node scripts/setup.mjs && next start -p 3456",
+    "selftest": "node scripts/selftest.mjs",
+    "uitest": "node scripts/uitest.mjs",
+    "typecheck": "tsc --noEmit",
+    "backup:pull": "node scripts/backup-pull.mjs"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "^0.5.10",
+    "next": "^16.4.6",
+    "pg": "^8.23.1",
+    "react": "^19.2.4",
+    "react-dom": "^19.2.4",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "@types/pg": "^8.23.1",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "typescript": "^5.9.3"
+  }
+}

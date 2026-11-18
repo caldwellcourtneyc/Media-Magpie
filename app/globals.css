@@ -1,0 +1,689 @@
+/* Design canon: DESIGN.md. Light = D's tokens, dark = B's tokens, one font pairing.
+   Color has one job each: the five hues mean media type, gold means Top Shelf.
+   Nothing else gets a hue; buttons and selection use ink inversion. */
+
+/* ---------- tokens: light (D) ---------- */
+/* The five hues and gold are one bright set in both modes. Text never sits on a hue fill
+   (white on lime is unreadable, and the rule here is white text on saturated fields), so selected
+   chips use ink inversion with the hue as a swatch, and tags use a tint. */
+:root {
+  --tv: #01b2d4;
+  --movie: #ee5802;
+  --music: #df3cb5;
+  --podcast: #629e46;
+  --book: #6b52d0;
+  --gold: #fbd101;
+
+  --stage: #eef0f6;
+  --ground: #eef0f6;
+  --panel: #ffffff;
+  --ink: #1b1d2b;
+  --note: #33374a;
+  --muted: #646a82;
+  --faint: #8a8fa6;
+  --line: #e3e6ef;
+  --soft: #eef0f6;
+  --soft-2: #e6e9f1;
+  --on: #ffffff;
+  --on-ring: 0 0 0 1px var(--line);
+  --sheet: #ffffff;
+  --scrim: rgb(20 22 36 / 0.42);
+  --field: #f5f6fa;
+  --field-line: #d9dce7;
+  --btn: #1b1d2b;
+  --btn-ink: #ffffff;
+
+  --tier-top-bg: #1b1d2b;
+  --tier-top-ink: oklch(0.8 0.14 85);
+  --tier-fave-bg: oklch(0.95 0.035 85);
+  --tier-fave-ink: oklch(0.47 0.1 75);
+  --tier-love-bg: #eceef4;
+  --tier-love-ink: #5b6078;
+
+  --main-bg: var(--panel);
+  --main-line: 1px solid var(--line);
+  --rail-bg: transparent;
+  --rail-line: 0;
+  --raise: #ffffff;
+
+  color-scheme: light;
+}
+
+/* ---------- tokens: dark (B's structure on dark navy) ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --tv: #01b2d4;
+    --movie: #ee5802;
+    --music: #df3cb5;
+    --podcast: #629e46;
+    --book: #6b52d0;
+    --gold: #fbd101;
+    --stage: radial-gradient(1200px 500px at 20% -10%, #142b4f 0%, #091933 45%, #040f22 100%);
+    --ground: #040f22;
+    --panel: #081a33;
+    --ink: #eceef6;
+    --note: #d6d8e4;
+    --muted: #a7aabb;
+    --faint: #8d90a3;
+    --line: #ffffff14;
+    --soft: #ffffff0d;
+    --soft-2: #ffffff16;
+    --on: #ffffff14;
+    --on-ring: none;
+    --sheet: #0a1c38;
+    --scrim: rgb(8 9 12 / 0.6);
+    --field: #ffffff0c;
+    --field-line: #ffffff24;
+    --btn: #eceef6;
+    --btn-ink: #16171c;
+    --tier-top-bg: #fbd101;
+    --tier-top-ink: #16171c;
+    --tier-fave-bg: #ffffff1f;
+    --tier-fave-ink: #fbd101;
+    --tier-love-bg: #ffffff14;
+    --tier-love-ink: #d3d5e0;
+    --main-bg: transparent;
+    --main-line: none;
+    --rail-bg: #ffffff08;
+    --rail-line: 1px solid #ffffff14;
+    --raise: #ffffff0d;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --tv: #01b2d4;
+  --movie: #ee5802;
+  --music: #df3cb5;
+  --podcast: #629e46;
+  --book: #6b52d0;
+  --gold: #fbd101;
+  --stage: radial-gradient(1200px 500px at 20% -10%, #142b4f 0%, #091933 45%, #040f22 100%);
+  --ground: #040f22;
+  --panel: #081a33;
+  --ink: #eceef6;
+  --note: #d6d8e4;
+  --muted: #a7aabb;
+  --faint: #8d90a3;
+  --line: #ffffff14;
+  --soft: #ffffff0d;
+  --soft-2: #ffffff16;
+  --on: #ffffff14;
+  --on-ring: none;
+  --sheet: #0a1c38;
+  --scrim: rgb(8 9 12 / 0.6);
+  --field: #ffffff0c;
+  --field-line: #ffffff24;
+  --btn: #eceef6;
+  --btn-ink: #16171c;
+  --tier-top-bg: #fbd101;
+  --tier-top-ink: #16171c;
+  --tier-fave-bg: #ffffff1f;
+  --tier-fave-ink: #fbd101;
+  --tier-love-bg: #ffffff14;
+  --tier-love-ink: #d3d5e0;
+  --main-bg: transparent;
+  --main-line: none;
+  --rail-bg: #ffffff08;
+  --rail-line: 1px solid #ffffff14;
+  --raise: #ffffff0d;
+  color-scheme: dark;
+}
+
+/* ---------- type scale (one set, used everywhere) ---------- */
+:root {
+  --fs-tiny: 12px;
+  --fs-meta: 13px;
+  --fs-card: 15px;
+  --fs-body: 16px;
+  --fs-lead: 17px;
+  --fs-h3: 19px;
+  --fs-brand: 23px;
+  --fs-h2: 26px;
+  --display: var(--font-display), "Schibsted Grotesk", system-ui, sans-serif;
+  --body: var(--font-body), "Figtree", system-ui, sans-serif;
+  --nav-w: 216px;
+  --rail-w: 360px;
+  --bar-h: 64px;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--ground);
+  background-image: var(--stage);
+  background-attachment: fixed;
+  color: var(--ink);
+  font-family: var(--body);
+  font-size: var(--fs-body);
+  line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; background: none; border: 0; padding: 0; }
+a { color: inherit; }
+:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; border-radius: 4px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+h1, h2, h3 { font-family: var(--display); margin: 0; }
+
+/* ---------- shell: nav | main | rail ---------- */
+.shell { display: grid; grid-template-columns: var(--nav-w) minmax(0, 1fr) var(--rail-w); min-height: 100vh; }
+.nav { position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 22px 16px; border-right: 1px solid var(--line); display: flex; flex-direction: column; }
+.brand { font-family: var(--display); font-weight: 900; font-size: var(--fs-brand); margin: 0 8px 18px; letter-spacing: -0.2px; text-align: left; }
+/* The brand in the nav and phone bar is a button home to Now. */
+button.brand { display: block; }
+/* Logo lockups (components/Logo.tsx; DESIGN.md, Brand). Sized in em from the .brand font size.
+   Horizontal: the two-line wordmark with the mark on its right (bird on the outer edge), bottoms aligned.
+   Stacked: mark centered on its nest, words below. */
+.lockup { display: flex; align-items: center; gap: 10px; color: var(--ink); }
+.lockup.horizontal { flex-direction: row-reverse; justify-content: flex-end; align-items: flex-end; gap: 6px; }
+.lockup-mark { display: block; flex: none; width: 3em; height: auto; }
+.lockup-words { display: flex; flex-direction: column; font-family: var(--font-brand), var(--display); line-height: 0.92; letter-spacing: 0; }
+.lockup-words .w1 { font-weight: 200; letter-spacing: 0.02em; }
+.lockup-words .w2 { font-weight: 900; }
+.lockup.stacked { flex-direction: column; gap: 0.2em; }
+.lockup.stacked .lockup-mark { width: 4.7em; }
+.lockup.stacked .lockup-words { align-items: center; }
+.nav .it { width: 100%; display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 8px; font-weight: 700; font-size: var(--fs-card); text-align: left; }
+.nav .it:hover { background: var(--soft); }
+.nav .it.on { background: var(--on); box-shadow: var(--on-ring); }
+.nav .it .n { margin-left: auto; font-weight: 500; font-size: var(--fs-meta); color: var(--muted); }
+.sw { width: 12px; height: 12px; border-radius: 3px; flex: none; display: inline-block; }
+.sw.all { background: linear-gradient(135deg, var(--tv), var(--music), var(--book)); }
+.nav .sep { font-family: var(--display); font-weight: 900; font-size: 15px; margin: 18px 10px 6px; }
+.nav .foot { margin-top: auto; padding-top: 18px; display: grid; gap: 8px; }
+.nav .add { justify-content: center; }
+
+.main { min-width: 0; padding: 22px 28px 60px; background: var(--main-bg); border-left: var(--main-line); border-right: var(--main-line); }
+.rail { position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 22px 20px; background: var(--rail-bg); border-left: var(--rail-line); }
+
+.phone-top, .tabbar, .chips-bar { display: none; }
+
+/* ---------- buttons, chips, fields ---------- */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; min-height: 40px; padding: 8px 16px; border-radius: 9px; font-weight: 700; font-size: var(--fs-card); background: var(--btn); color: var(--btn-ink); }
+.btn:disabled { opacity: 0.5; cursor: default; }
+.btn svg { width: 18px; height: 18px; flex: none; }
+a.btn { text-decoration: none; }
+.btn.ghost { background: var(--soft); color: var(--ink); }
+.btn.ghost:hover { background: var(--soft-2); }
+.btn.small { min-height: 32px; padding: 5px 11px; font-size: var(--fs-meta); border-radius: 7px; }
+.btn.wide { width: 100%; }
+.btn.danger { background: transparent; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.linkbtn { font-weight: 700; font-size: var(--fs-meta); color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.linkbtn:hover { color: var(--ink); }
+.iconbtn { width: 40px; height: 40px; border-radius: 9px; display: inline-grid; place-items: center; color: var(--ink); }
+.iconbtn:hover { background: var(--soft); }
+.iconbtn svg { width: 20px; height: 20px; }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { display: inline-flex; align-items: center; gap: 7px; min-height: 36px; padding: 6px 12px; border-radius: 8px; font-weight: 700; font-size: var(--fs-meta); background: var(--soft); color: var(--ink); border: 1px solid transparent; white-space: nowrap; }
+.chip:hover { background: var(--soft-2); }
+.chip:disabled { opacity: 0.45; cursor: default; }
+.chip:disabled:hover { background: var(--soft); }
+.chip.on { background: var(--btn); color: var(--btn-ink); }
+.watchchips { margin-bottom: 14px; }
+.watchchips + .chips { margin-top: -8px; }
+.orderat { font-family: var(--body); font-weight: 500; font-size: var(--fs-meta); color: var(--muted); margin-left: 8px; }
+.chip .sw { width: 10px; height: 10px; }
+.chip.tier-top.on { background: var(--tier-top-bg); color: var(--tier-top-ink); }
+.chip.tier-fave.on { background: var(--tier-fave-bg); color: var(--tier-fave-ink); box-shadow: inset 0 0 0 1.5px currentColor; }
+
+.field { display: grid; gap: 6px; }
+.field > span, .label { font-weight: 700; font-size: var(--fs-meta); color: var(--muted); }
+.input, .textarea { width: 100%; min-height: 44px; padding: 10px 12px; border-radius: 9px; border: 1px solid var(--field-line); background: var(--field); font-size: var(--fs-body); }
+.textarea { min-height: 96px; resize: vertical; line-height: 1.45; }
+.input:focus, .textarea:focus { outline: none; border-color: var(--ink); }
+.row2 { display: grid; grid-template-columns: 1fr 120px; gap: 10px; }
+.hint { font-size: var(--fs-meta); color: var(--muted); margin: 0; }
+.err { font-size: var(--fs-meta); font-weight: 700; color: var(--ink); background: var(--soft); border-radius: 8px; padding: 8px 10px; }
+
+/* ---------- headings and shared bits ---------- */
+.h2 { font-weight: 900; font-size: var(--fs-h2); margin: 26px 0 10px; }
+.h2:first-child { margin-top: 4px; }
+.h2 small { font-family: var(--body); font-weight: 500; font-size: var(--fs-meta); color: var(--muted); margin-left: 10px; }
+.h3 { font-weight: 900; font-size: var(--fs-h3); margin: 0 0 10px; }
+.viewhead { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; margin: 4px 0 16px; }
+.viewhead h1 { font-weight: 900; font-size: 30px; letter-spacing: -0.3px; }
+.viewhead .sub { color: var(--muted); font-size: var(--fs-meta); }
+/* Shiny things' + Capture: on desk the rail is already the open capture form, so the button would only repeat it. */
+@media (min-width: 1180px) { .viewhead .cap-add { display: none; } }
+.empty { color: var(--muted); font-size: var(--fs-card); padding: 8px 0 14px; margin: 0; }
+.tag { display: inline-block; font-size: var(--fs-tiny); font-weight: 700; padding: 3px 9px; border-radius: 5px; background: color-mix(in oklab, var(--hue) 24%, transparent); box-shadow: inset 0 0 0 1px color-mix(in oklab, var(--hue) 70%, transparent); color: var(--ink); white-space: nowrap; }
+.tag.plain { background: var(--soft-2); color: var(--muted); }
+.tier { display: inline-flex; align-items: center; gap: 4px; font-size: var(--fs-tiny); font-weight: 700; padding: 2px 8px; border-radius: 5px; margin-left: 8px; vertical-align: 2px; white-space: nowrap; }
+.tier.top { background: var(--tier-top-bg); color: var(--tier-top-ink); }
+.tier.fave { background: var(--tier-fave-bg); color: var(--tier-fave-ink); }
+.tier.love { background: var(--tier-love-bg); color: var(--tier-love-ink); }
+.pick { display: inline-block; font-size: var(--fs-tiny); font-weight: 700; padding: 2px 8px; border-radius: 5px; border: 1px dashed var(--faint); color: var(--muted); margin-left: 8px; vertical-align: 2px; }
+
+/* covers: art sits on a blurred copy of itself so square and tall art share one box */
+.cv { position: relative; overflow: hidden; background: var(--soft-2); aspect-ratio: 2 / 3; border-radius: 6px; }
+.cv::before { content: ""; position: absolute; inset: -20px; background: var(--img) center / cover; filter: blur(16px) brightness(0.75) saturate(1.1); }
+.cv img { position: relative; width: 100%; height: 100%; object-fit: contain; display: block; }
+/* No art: in light mode an ink tile with a white title and a band of the type color along the bottom
+   (a pale tint read as washed out); in dark mode a tint of the type color. Text never sits on the hue. */
+.cv.ph { background: var(--ink); color: #ffffff; box-shadow: inset 0 -8px 0 var(--hue); display: flex; flex-direction: column; justify-content: space-between; padding: 9px 9px 16px; }
+.cv.ph::before { display: none; }
+.cv.ph b { font-family: var(--display); font-weight: 700; font-size: 13px; line-height: 1.15; overflow-wrap: break-word; hyphens: auto; display: -webkit-box; -webkit-line-clamp: 5; -webkit-box-orient: vertical; overflow: hidden; }
+.cv.ph i { font-style: normal; font-size: var(--fs-tiny); font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: #ffffffb3; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) .cv.ph { background: color-mix(in oklab, var(--hue) 22%, var(--panel)); color: var(--ink); box-shadow: none; padding: 9px; }
+  :root:not([data-theme="light"]) .cv.ph i { color: color-mix(in oklab, var(--ink) 70%, var(--hue)); }
+  :root:not([data-theme="light"]) .cv.ph.creator { background: transparent; box-shadow: inset 0 0 0 1.5px color-mix(in oklab, var(--hue) 60%, transparent); }
+}
+:root[data-theme="dark"] .cv.ph { background: color-mix(in oklab, var(--hue) 22%, var(--panel)); color: var(--ink); box-shadow: none; padding: 9px; }
+:root[data-theme="dark"] .cv.ph i { color: color-mix(in oklab, var(--ink) 70%, var(--hue)); }
+:root[data-theme="dark"] .cv.ph.creator { background: transparent; box-shadow: inset 0 0 0 1.5px color-mix(in oklab, var(--hue) 60%, transparent); }
+.cv.tiny b, .cv.tiny i { display: none; }
+.cv.tiny { padding: 0; }
+
+/* ---------- shared text bits ---------- */
+.mt { font-size: var(--fs-meta); margin-top: 2px; color: var(--muted); }
+.nt { font-size: var(--fs-card); margin-top: 6px; line-height: 1.45; color: var(--note); white-space: pre-wrap; }
+.q { margin-top: 8px; padding: 10px 14px; border-radius: 8px; font-size: var(--fs-card); line-height: 1.45; border-left: 3px solid var(--hue, var(--faint)); background: var(--soft); white-space: pre-wrap; }
+.q small { display: block; font-size: var(--fs-tiny); margin-top: 4px; color: var(--muted); white-space: normal; }
+
+/* ---------- now (home): deciding what to watch; adding lives in the right rail ---------- */
+/* One column: Watching, then Coming soon as a strip of dated lines when anything is close, then Up Next. */
+/* Keyboard only: the first Tab offers a jump past the nav. */
+.skip { position: absolute; left: 12px; top: -60px; z-index: 110; padding: 10px 14px; border-radius: 8px; background: var(--btn); color: var(--btn-ink); font-weight: 700; }
+.skip:focus { top: 12px; }
+.now-elsewhere { display: grid; gap: 12px; justify-items: start; padding-top: 4px; }
+.now-watching .h2 { margin-top: 4px; }
+/* The empty library: a welcome with three first steps, over a faint shelf of examples nobody can touch. */
+.welcome { padding-top: 4px; }
+.welcome h1 { font-weight: 900; font-size: 30px; letter-spacing: -0.3px; margin: 0; }
+.welcome-sub { margin: 6px 0 0; color: var(--muted); font-size: var(--fs-lead); }
+.welcome-acts { display: flex; flex-wrap: wrap; gap: 8px; margin: 18px 0 10px; }
+.welcome-acts .btn { min-height: 48px; }
+.ghostwrap { margin-top: 26px; }
+.ghost-note { margin: 0; color: var(--muted); font-size: var(--fs-meta); }
+.ghostshelf { opacity: 0.32; pointer-events: none; user-select: none; }
+.ghostshelf .h2 { margin-top: 10px; }
+.ghostrow { display: grid; grid-auto-flow: column; grid-auto-columns: 132px; gap: 14px; overflow: hidden; -webkit-mask-image: linear-gradient(to right, #000 78%, transparent); mask-image: linear-gradient(to right, #000 78%, transparent); }
+.now-soon .h2, .now-reading .h2 { margin-top: 26px; }
+.now-reading:first-child .h2 { margin-top: 4px; }
+.now-new .h2 { margin-top: 30px; }
+/* Covers keep one size and fill the row, however wide the page (three fixed columns ballooned on a wide screen). */
+.posters { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px 14px; }
+.posters.small { grid-template-columns: repeat(auto-fill, minmax(132px, 1fr)); }
+/* align-self: a stretched button centers its contents, so one two-line caption pushed the row's other covers down. */
+.poster { display: block; min-width: 0; text-align: left; align-self: start; }
+.poster .cv { transition: transform 0.18s ease; }
+.poster:hover .cv { transform: translateY(-3px); }
+.poster b { display: block; margin-top: 8px; font-family: var(--display); font-weight: 700; font-size: var(--fs-card); line-height: 1.2; overflow-wrap: break-word; hyphens: auto; }
+.poster small { display: block; margin-top: 3px; font-size: var(--fs-tiny); font-weight: 700; color: var(--muted); }
+.now-new .linkbtn, .now-soon .linkbtn, .now-reading .linkbtn { display: inline-block; margin-top: 12px; }
+.dateline { display: flex; align-items: center; gap: 12px; min-height: 36px; font-weight: 700; font-size: var(--fs-card); }
+
+/* ---------- rail: Add something, the + sheet laid open (desk only) ---------- */
+.addrail { display: grid; gap: 14px; align-content: start; padding: 20px 18px; }
+.railhead { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.railhead .h3 { margin: 0; }
+.addpanel-body { display: grid; gap: 16px; align-content: start; }
+/* The tabs size to their labels, so "Shiny things" stays on one line. */
+.seg.addtabs { grid-template-columns: repeat(4, auto); }
+.seg.addtabs button { white-space: nowrap; padding: 2px 8px; }
+.shell:has(.addrail.folded) { grid-template-columns: var(--nav-w) minmax(0, 1fr) 64px; }
+.addrail.folded { padding: 18px 8px; }
+.railopen { display: grid; justify-items: center; gap: 14px; width: 100%; padding: 6px 0 12px; border-radius: 10px; }
+.railopen:hover { background: var(--soft); }
+.railopen svg { width: 42px; height: 42px; padding: 10px; border-radius: 12px; background: var(--btn); color: var(--btn-ink); }
+.railopen span { writing-mode: vertical-rl; font-family: var(--display); font-weight: 900; font-size: var(--fs-card); }
+/* With the rail there, the nav's Add something button would only repeat it. */
+@media (min-width: 1180px) { .nav .add { display: none; } }
+
+/* ---------- favorites ---------- */
+.tierhead { display: flex; align-items: baseline; gap: 10px; margin: 26px 0 12px; }
+.tierhead:first-of-type { margin-top: 4px; }
+.tierhead h2 { font-weight: 900; font-size: var(--fs-h2); }
+.tierhead.top h2 .star { color: var(--gold); }
+.tierhead span { font-size: var(--fs-meta); color: var(--muted); }
+/* Everything: one room per type, a shelf that scrolls sideways, Top Shelf and Faves first and marked. */
+.room { margin-bottom: 14px; }
+.roomhead { display: flex; align-items: baseline; gap: 10px; margin: 20px 0 10px; }
+.room:first-of-type .roomhead { margin-top: 4px; }
+.roomhead .sw { width: 14px; height: 14px; align-self: center; }
+.roomhead h2 { font-weight: 900; font-size: var(--fs-h2); }
+.roomhead .n { font-size: var(--fs-meta); color: var(--muted); }
+.roomhead .linkbtn { margin-left: auto; }
+.roomshelf { display: grid; grid-auto-flow: column; grid-auto-columns: 112px; gap: 12px; overflow-x: auto; padding-bottom: 10px; scroll-snap-type: x proximity; }
+.roomshelf .tile { scroll-snap-align: start; position: relative; }
+.roomshelf.sq .cv { aspect-ratio: 1; }
+.tmark { position: absolute; top: 6px; left: 6px; font-size: var(--fs-tiny); font-weight: 800; padding: 2px 7px; border-radius: 5px; }
+.tmark.top { background: var(--tier-top-bg); color: var(--tier-top-ink); }
+.tmark.fave { background: var(--panel); color: var(--tier-fave-ink); box-shadow: inset 0 0 0 1.5px currentColor; }
+/* A marked tile with no cover: the title block starts below the mark instead of under it. */
+.tile:has(.tmark) .cv.ph { padding-top: 34px; }
+/* A type's room: the type's name leads; grids fill the width; covers shrink as the tier drops. */
+.roomtop h1 { display: flex; align-items: center; gap: 12px; }
+.sw.big { width: 16px; height: 16px; border-radius: 4px; }
+.rgrid { display: grid; gap: 16px 12px; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); margin-bottom: 8px; }
+.rgrid.fave { grid-template-columns: repeat(auto-fill, minmax(128px, 1fr)); }
+.rgrid.top { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 16px 14px; }
+.rgrid.top .tile .ti { font-family: var(--display); font-size: var(--fs-card); }
+.rgrid.sq .cv { aspect-ratio: 1; }
+.subh { font-weight: 900; font-size: var(--fs-lead); display: flex; align-items: baseline; gap: 8px; margin: 18px 0 10px; }
+.subh span { font-family: var(--body); font-weight: 500; font-size: var(--fs-meta); color: var(--muted); }
+.roomhint { margin: -4px 0 10px; }
+.tile { text-align: left; min-width: 0; align-self: start; display: block; }
+.tile .cv { transition: transform 0.18s ease; }
+.tile:hover .cv { transform: translateY(-3px); }
+.tile .ti { font-size: var(--fs-tiny); font-weight: 700; margin-top: 6px; line-height: 1.25; overflow-wrap: break-word; hyphens: auto; }
+.tile .by { font-size: var(--fs-tiny); color: var(--muted); margin-top: 2px; line-height: 1.25; }
+.tile .pickline { font-size: var(--fs-tiny); font-weight: 700; color: var(--muted); margin-top: 2px; }
+
+/* ---------- queue ---------- */
+.svc { display: inline-block; font-family: var(--body); font-size: var(--fs-tiny); font-weight: 700; padding: 2px 8px; border-radius: 5px; margin-left: 8px; vertical-align: 2px; background: var(--soft-2); color: var(--ink); box-shadow: inset 0 0 0 1px var(--line); }
+
+/* Up next: cover tiles, sized like Now's small posters. */
+.qtiles { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 16px 14px; margin-bottom: 18px; }
+
+/* Coming soon on Up next: the dated lines Now uses, three across on desk. Hidden ones, once asked for, sit dimmed with Show again. */
+.soonhid { display: flex; align-items: center; gap: 12px; border-bottom: 1px solid var(--line); }
+.soonhid .soonline { flex: 1; min-width: 0; border-bottom: 0; opacity: 0.55; }
+.soonhid .linkbtn { flex: none; min-height: 36px; }
+.soonlist.hid { margin-top: 4px; }
+.soon .linkbtn { display: inline-block; }
+.soon > .linkbtn { margin-top: 10px; }
+.soon { margin-bottom: 14px; }
+
+/* A section you can hide (Not a Fan, No Access): heading with Hide or Show beside it. */
+.foldhead { display: flex; align-items: baseline; gap: 14px; }
+.foldhead .h2 { margin-bottom: 10px; }
+.fold.is-hidden .foldhead .h2 { color: var(--muted); }
+.poster small.air { color: var(--ink); }
+/* Dragging a cover to a new place: the bar shows where it will land. */
+.poster[draggable="true"] { position: relative; }
+.poster[draggable="true"] img { -webkit-user-drag: none; }
+.poster[data-dragging] { opacity: 0.4; }
+.poster[data-drop]::after { content: ""; position: absolute; top: 0; bottom: 0; width: 4px; border-radius: 2px; background: var(--ink); }
+.poster[data-drop="before"]::after { left: -9px; }
+.poster[data-drop="after"]::after { right: -9px; }
+.soonlist { display: grid; }
+/* Desk and mid width: Now's dated lines run three across under Watching. */
+@media (min-width: 860px) { .soonlist { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 28px; } }
+.soonline { display: grid; grid-template-columns: 76px minmax(0, 1fr); column-gap: 12px; align-items: baseline; align-content: start; padding: 8px 0; border-bottom: 1px solid var(--line); text-align: left; }
+.soonline .d { grid-row: span 2; font-family: var(--display); font-weight: 900; font-size: var(--fs-card); }
+.soonline b { font-family: var(--display); font-weight: 700; font-size: var(--fs-card); overflow-wrap: anywhere; }
+.soonline small { font-size: var(--fs-tiny); font-weight: 700; color: var(--muted); }
+.soonline:hover b { text-decoration: underline; text-underline-offset: 3px; }
+.soon-field b { display: block; font-weight: 700; font-size: var(--fs-card); }
+.soon-field small { display: block; font-size: var(--fs-meta); color: var(--muted); margin-top: 2px; }
+@media (max-width: 859px) {
+  .qtiles { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px 10px; }
+  /* Now's Up Next is three across like Watching above it (two across drew what's queued bigger than what's on). */
+  .posters.small { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .posters.small .poster b { font-size: var(--fs-meta); }
+}
+
+/* ---------- captures ---------- */
+.capgrid { columns: 2; column-gap: 16px; }
+.cap { position: relative; break-inside: avoid; margin: 0 0 16px; padding: 16px 18px; border-radius: 10px; border-left: 3px solid var(--hue, var(--faint)); background: var(--soft); width: 100%; text-align: left; display: block; }
+/* The whole card opens through a button laid over it; a saved link sits above that as a real link. */
+.cap-open { position: absolute; inset: 0; border-radius: inherit; cursor: pointer; }
+.cap-open:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.caplink { position: relative; z-index: 1; display: inline-block; margin-top: 4px; padding: 4px 0; font-size: var(--fs-tiny); font-weight: 700; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; overflow-wrap: anywhere; }
+.caplink:hover { color: var(--ink); }
+.cap p { margin: 0 0 8px; font-size: var(--fs-lead); line-height: 1.4; font-weight: 500; white-space: pre-wrap; overflow-wrap: anywhere; }
+.cap.idea p, .cap.note p { font-size: var(--fs-card); font-weight: 500; }
+.cap small { font-size: var(--fs-tiny); font-weight: 700; color: var(--muted); display: block; }
+.cap .kind { font-size: var(--fs-tiny); font-weight: 700; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); margin-bottom: 6px; display: block; }
+.cap .cnote { font-size: var(--fs-meta); color: var(--note); margin-top: 8px; font-weight: 400; }
+.cap a { word-break: break-all; }
+/* Marks (no words yet, "To finish") sit among the captures: the screenshot as a thumbnail, then where it's from. */
+.cap .markbody { display: flex; gap: 12px; align-items: center; }
+.cap .markbody img { width: 52px; height: 72px; flex: none; border-radius: 6px; object-fit: cover; object-position: top; display: block; background: var(--soft-2); }
+.cap .markbody b { display: block; font-size: var(--fs-card); overflow-wrap: anywhere; }
+.cap .markbody small { font-size: var(--fs-meta); font-weight: 400; margin-top: 2px; }
+/* In the capture form: the image, the picker, and Claude's line after a talk (kept apart from your note). */
+/* The thumbnail matches a mark's on Shiny things (52 x 72); a saved one opens full size. */
+.capimg { display: flex; align-items: center; gap: 12px; }
+.capimg img { width: 52px; height: 72px; object-fit: cover; object-position: top; border-radius: 6px; border: 1px solid var(--line); display: block; }
+/* Finishing a mark: the screenshot leads, full width but never more than 40% of the screen (its top
+   shows, where the episode and time usually are), so the words box stays in reach; a tap opens it whole. */
+.capshot { display: block; width: 100%; border-radius: 8px; overflow: hidden; border: 1px solid var(--line); background: var(--soft-2); cursor: zoom-in; }
+.capshot img { display: block; width: 100%; max-height: 40vh; object-fit: cover; object-position: top; }
+.capzoom { position: fixed; inset: 0; z-index: 120; display: grid; place-items: center; padding: 12px; background: rgb(0 0 0 / 0.88); cursor: zoom-out; }
+.capzoom img { max-width: 100%; max-height: 100%; object-fit: contain; border-radius: 6px; }
+/* A finished capture keeps a small thumbnail of its screenshot, so it's plain the image is still there. */
+.cap .capthumb { float: right; width: 40px; height: 56px; margin: 0 0 8px 12px; border-radius: 5px; object-fit: cover; object-position: top; background: var(--soft-2); }
+.filepick { position: relative; justify-self: start; cursor: pointer; }
+.filepick.busy { opacity: 0.6; }
+.filepick:focus-within { outline: 2px solid var(--ink); outline-offset: 2px; }
+.vh { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; clip: rect(0 0 0 0); }
+/* Upload and Paste side by side. Save is pinned to the bottom of the sheet or rail, on its own ground,
+   while the form scrolls under it; scrolled to the end it sits after the last field, covering nothing.
+   Sticky measures from inside the scroller's padding (20px in both), hence the negative bottom. */
+.capbtns { display: flex; flex-wrap: wrap; gap: 8px; }
+.capsave { position: sticky; bottom: -20px; z-index: 1; margin: 0 -20px; padding: 12px 20px calc(12px + env(safe-area-inset-bottom)); background: var(--sheet); border-top: 1px solid var(--line); }
+.capsave:last-child { margin-bottom: -20px; }
+.addrail .capsave { margin: 0 -18px -20px; padding: 12px 18px 20px; background: linear-gradient(var(--rail-bg), var(--rail-bg)), var(--ground); }
+.sheet-body:has(.capsave), .addrail:has(.capsave) { scroll-padding-bottom: 90px; }
+.talked { padding: 10px 14px; border-radius: 8px; background: var(--soft); font-size: var(--fs-card); }
+.talked b { display: block; font-size: var(--fs-meta); }
+.talked p { margin: 4px 0 0; }
+
+/* ---------- settings ---------- */
+.setsec { padding: 18px 0 22px; border-bottom: 1px solid var(--line); display: grid; gap: 12px; }
+.setsec > h3, .setsec > summary > h3 { font-weight: 900; font-size: var(--fs-h3); }
+/* Three loud groups (Library, This device, Connections), each under an ink rule. One column, in that order;
+   on desk two, Library on the left and the other two stacked on the right. */
+.setgroups, .setside { display: grid; gap: 30px; align-content: start; }
+.setgroup > h2 { font-weight: 900; font-size: var(--fs-h2); padding-bottom: 6px; border-bottom: 2px solid var(--ink); }
+.setgroup > .setsec:last-child { border-bottom: 0; }
+/* A backup folder is one long unbroken path. */
+.setgroup .devfold > p { overflow-wrap: anywhere; }
+@media (min-width: 1180px) {
+  .setgroups { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 30px 44px; align-items: start; }
+  .setside .libbyadd { grid-template-columns: 1fr; }
+}
+.setsec p { margin: 0; color: var(--note); font-size: var(--fs-card); max-width: 70ch; }
+.trash-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: var(--fs-card); }
+.trash-row small { display: block; color: var(--muted); font-size: var(--fs-tiny); }
+.trash-row small.twin { color: var(--ink); font-weight: 700; margin-top: 2px; }
+.typeorder { list-style: none; margin: 0; padding: 0; max-width: 520px; }
+.typeorder li { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); font-size: var(--fs-card); }
+.typeorder .chips { flex-wrap: nowrap; }
+.cgroup { display: grid; gap: 8px; }
+.cgroup h3 { font-weight: 900; font-size: var(--fs-card); }
+.crow { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.crow .cv { width: 56px; border-radius: 4px; }
+/* A found cover that doesn't load: at this size a title breaks mid-word, and it's beside it in the row. The band and type label alone. */
+.crow .cv.ph { justify-content: flex-end; }
+.crow .cv.ph b { display: none; }
+.crow .cv.ph i { text-transform: none; letter-spacing: 0; margin: 0 -5px; white-space: nowrap; }
+.crow-text { min-width: 0; }
+.crow-text b { display: block; font-size: var(--fs-card); overflow-wrap: anywhere; }
+.crow-text small { display: block; font-size: var(--fs-tiny); color: var(--muted); }
+.crow-text small.found { color: var(--note); margin-top: 3px; }
+.libbyadd { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto; gap: 8px; max-width: 640px; }
+.libbyadd .hint { grid-column: 1 / -1; }
+@media (max-width: 600px) { .libbyadd { grid-template-columns: 1fr; } }
+.devfold summary { cursor: pointer; list-style: none; display: flex; align-items: center; gap: 10px; min-height: 36px; }
+.devfold summary::-webkit-details-marker { display: none; }
+.devfold summary::after { content: "Show"; font-weight: 700; font-size: var(--fs-meta); color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+.devfold[open] summary::after { content: "Fold"; }
+.devfold { display: block; }
+.devfold > p { margin-top: 12px; }
+/* A laptop copy that isn't the real library says so on every page (TEST_COPY). */
+.testcopy { padding: calc(6px + env(safe-area-inset-top)) 16px 6px; text-align: center; font-size: var(--fs-meta); font-weight: 700; background: var(--btn); color: var(--btn-ink); }
+.codeline { font-family: ui-monospace, Consolas, monospace; font-size: var(--fs-meta); background: var(--soft); padding: 2px 6px; border-radius: 5px; }
+
+/* ---------- sheets (add, item detail) ---------- */
+.scrim { position: fixed; inset: 0; background: var(--scrim); z-index: 80; display: flex; justify-content: center; align-items: flex-start; padding: 6vh 16px; overflow-y: auto; animation: fade 0.15s ease both; }
+.scrim.right { justify-content: flex-end; align-items: stretch; padding: 0; overflow: hidden; }
+@keyframes fade { from { opacity: 0; } }
+.sheet { width: min(600px, 100%); background: var(--sheet); border-radius: 14px; border: 1px solid var(--line); display: flex; flex-direction: column; max-height: 88vh; animation: up 0.2s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+.scrim.right .sheet { width: min(480px, 100%); max-height: none; height: 100%; border-radius: 0; border-width: 0 0 0 1px; animation: slide 0.22s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+@keyframes up { from { transform: translateY(14px); opacity: 0; } }
+@keyframes slide { from { transform: translateX(24px); opacity: 0; } }
+.sheet-grab { display: none; }
+.sheet-head { display: flex; align-items: center; gap: 10px; padding: 14px 16px 10px 20px; border-bottom: 1px solid var(--line); }
+.sheet-head h2 { font-weight: 900; font-size: var(--fs-h3); flex: 1; }
+.sheet-body { padding: 16px 20px 20px; overflow-y: auto; display: grid; gap: 16px; align-content: start; flex: 1; }
+.sheet-foot { padding: 12px 20px calc(12px + env(safe-area-inset-bottom)); border-top: 1px solid var(--line); display: flex; gap: 10px; align-items: center; }
+.sheet-foot .btn { flex: 1; min-height: 48px; font-size: var(--fs-body); }
+/* Closing with unsaved typing asks here, under the head, so it shows whatever the scroll. */
+.sheet-ask { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px; padding: 12px 20px; background: var(--soft); border-bottom: 1px solid var(--line); }
+.sheet-ask span { flex: 1 1 100%; font-weight: 700; }
+.sheet-ask .btn { flex: 1; }
+.seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; border-radius: 10px; background: var(--soft); }
+.seg button { min-height: 38px; border-radius: 7px; font-weight: 700; font-size: var(--fs-card); color: var(--muted); }
+.seg button.on { background: var(--btn); color: var(--btn-ink); }
+.seg.seg4 { grid-template-columns: repeat(4, 1fr); }
+.seg button { line-height: 1.15; padding: 2px 4px; }
+.chip.dash { background: transparent; box-shadow: inset 0 0 0 1.5px var(--field-line); color: var(--muted); }
+.chip.dash:hover { color: var(--ink); }
+
+.results { display: grid; gap: 2px; margin-top: 2px; }
+.results .rh { font-size: var(--fs-tiny); font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 0.6px; margin: 8px 0 2px; }
+.res { display: grid; grid-template-columns: 36px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 6px 8px; border-radius: 8px; text-align: left; width: 100%; }
+.res:hover, .res:focus-visible { background: var(--soft); }
+.res .cv { width: 36px; border-radius: 4px; }
+.res b { display: block; font-size: var(--fs-card); }
+.res small { display: block; font-size: var(--fs-tiny); color: var(--muted); }
+/* What picking a match does ("Queue it"): an ink pill, so it reads as the action and not a label. */
+.res .act { padding: 4px 11px; border-radius: 999px; background: var(--btn); color: var(--btn-ink); font-size: var(--fs-tiny); font-weight: 700; white-space: nowrap; }
+.picked { display: grid; grid-template-columns: 56px minmax(0, 1fr) auto; gap: 14px; align-items: center; padding: 10px; border-radius: 10px; background: var(--soft); }
+.picked .cv { width: 56px; }
+.picked b { display: block; font-size: var(--fs-lead); }
+.picked small { color: var(--muted); font-size: var(--fs-meta); }
+
+/* Item sheet: the cover and title on the sheet's own ground, then tabs (About, Captures, History). */
+.sheet-head.has-top { display: block; position: relative; padding: 0; }
+.sheet-head.has-top > .iconbtn { position: absolute; top: 10px; right: 10px; }
+.ihero { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 18px; align-items: end; padding: 22px 56px 18px 20px; }
+.ihero .cv { width: 120px; border-radius: 8px; }
+.ihero-text { min-width: 0; display: grid; justify-items: start; gap: 2px; }
+.ihero h3 { font-family: var(--display); font-weight: 900; font-size: 30px; line-height: 1.08; letter-spacing: -0.3px; margin-top: 8px; overflow-wrap: break-word; hyphens: auto; }
+.ihero .mt { font-size: var(--fs-card); }
+.inext { margin-top: 6px; font-family: var(--display); font-weight: 800; font-size: var(--fs-card); }
+.ihero-edit { min-height: 36px; margin-top: 2px; }
+/* Find in Libby: a row on About, one chip per library, each a link out. */
+a.chip { text-decoration: none; }
+.itabs { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; padding: 0 12px; border-top: 1px solid var(--line); }
+.itabs button { min-height: 48px; font-family: var(--display); font-weight: 900; font-size: var(--fs-card); color: var(--muted); border-bottom: 3px solid transparent; }
+.itabs button.on { color: var(--ink); border-bottom-color: var(--ink); }
+.itabs span { font-family: var(--body); font-weight: 500; font-size: var(--fs-tiny); margin-left: 6px; }
+.ipanel { display: grid; gap: 16px; align-content: start; }
+.ipanel[hidden] { display: none; }
+/* Section labels in the item sheet are loud, as the canon says. */
+.isheet .field > span { font-family: var(--display); font-weight: 900; font-size: var(--fs-card); color: var(--ink); }
+.banner { padding: 12px 14px; border-radius: 10px; background: var(--soft); font-size: var(--fs-card); display: grid; gap: 10px; border: 1px dashed var(--faint); }
+.loglist { display: grid; }
+.logrow { display: grid; grid-template-columns: 76px minmax(0, 1fr) auto; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--line); align-items: start; font-size: var(--fs-card); }
+.logrow .d, .lastlog .d { font-weight: 700; font-size: var(--fs-meta); color: var(--muted); padding-top: 1px; }
+/* About leads with the newest finish, worded as History words it (no Edit or Delete), then the newest capture. */
+.lastlog { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 10px; padding: 4px 0 10px; border-bottom: 1px solid var(--line); align-items: start; font-size: var(--fs-card); }
+.lastmore { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 14px; margin-top: 4px; }
+.subform { display: grid; gap: 12px; padding: 14px; border-radius: 10px; background: var(--soft); }
+.subform .input, .subform .textarea { background: var(--panel); }
+/* The finish form's tier chips sit on the form's soft ground, so they take the panel's, as its inputs do. */
+.subform .field .chip:not(.on) { background: var(--panel); }
+.subform .field .chip:not(.on):hover { background: var(--soft-2); }
+.origin { font-size: var(--fs-tiny); color: var(--muted); }
+.datechips { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.datechips .input { width: auto; min-height: 36px; padding: 5px 10px; font-size: var(--fs-card); }
+
+/* ---------- toast ---------- */
+.toasts { position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%); z-index: 100; display: grid; gap: 8px; width: min(440px, calc(100% - 32px)); }
+.toast { display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 10px; background: var(--btn); color: var(--btn-ink); font-weight: 700; font-size: var(--fs-card); animation: up 0.2s ease both; }
+.toast span { flex: 1; }
+.toast button { font-weight: 900; text-decoration: underline; text-underline-offset: 3px; }
+.toast.bad { outline: 2px solid var(--gold); }
+
+/* ---------- login ---------- */
+.login { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; }
+.login-card { width: min(380px, 100%); display: grid; gap: 18px; }
+.login-card .brand { margin: 0; font-size: 34px; }
+.login-card p { margin: 0; color: var(--muted); font-size: var(--fs-card); }
+.login-card .login-hint { font-size: var(--fs-meta); text-align: center; }
+.login-card .login-tag { color: var(--ink); font-size: var(--fs-lead); margin: -6px 0 6px; text-align: center; }
+
+/* ---------- mid width: rail folds away ---------- */
+@media (max-width: 1179px) {
+  .shell, .shell:has(.addrail.folded) { grid-template-columns: var(--nav-w) minmax(0, 1fr); }
+  .rail { display: none; }
+}
+
+/* ---------- phone ---------- */
+@media (max-width: 859px) {
+  .shell { display: block; padding-bottom: calc(var(--bar-h) + env(safe-area-inset-bottom)); }
+  .nav { display: none; }
+  .main { padding: 14px 16px 40px; border: 0; border-top: var(--main-line); min-height: 70vh; }
+  .chips-bar .chip:not(.on) { background: var(--raise); }
+  .phone-top { display: flex; align-items: center; gap: 4px; padding: calc(8px + env(safe-area-inset-top)) 12px 4px 16px; }
+  .phone-top .brand { margin: 0 6px 0 0; flex: none; font-size: var(--fs-lead); }
+  .chips-bar { display: flex; gap: 6px; overflow-x: auto; padding: 8px 16px 10px; position: sticky; top: 0; z-index: 30; background: var(--ground); scrollbar-width: none; }
+  .chips-bar::-webkit-scrollbar { display: none; }
+  .chips-bar .chip { flex: none; }
+  .tabbar { display: grid; grid-template-columns: repeat(5, 1fr); align-items: center; position: fixed; left: 0; right: 0; bottom: 0; z-index: 60; height: calc(var(--bar-h) + env(safe-area-inset-bottom)); padding-bottom: env(safe-area-inset-bottom); background: var(--sheet); border-top: 1px solid var(--line); }
+  .tabbar button { display: grid; justify-items: center; gap: 3px; font-size: var(--fs-tiny); font-weight: 700; color: var(--muted); padding: 8px 0; }
+  .tabbar button svg { width: 22px; height: 22px; }
+  /* Text links are a finger's height to tap (DESIGN.md: 36px at least), though they read as text. */
+  .linkbtn { min-height: 44px; display: inline-flex; align-items: center; }
+  .tabbar button.on { color: var(--ink); }
+  .tabbar .plus { justify-self: center; width: 54px; height: 54px; border-radius: 16px; background: var(--btn); color: var(--btn-ink); display: grid; place-items: center; padding: 0; margin-top: -14px; }
+  .tabbar .plus svg { width: 26px; height: 26px; }
+  .viewhead h1 { font-size: 26px; }
+  .h2 { font-size: 23px; }
+  .roomshelf { grid-auto-columns: 92px; margin-right: -16px; padding-right: 16px; }
+  .rgrid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 10px; }
+  .rgrid.fave { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .rgrid.top { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 10px; }
+  .capgrid { columns: 1; }
+  /* The phone keeps Watching three across. */
+  .now-soon .h2, .now-new .h2 { margin-top: 26px; }
+  .welcome h1 { font-size: 26px; }
+  .welcome-acts .btn { flex: 1 1 auto; }
+  .ghostrow { grid-auto-columns: 104px; gap: 10px; }
+  .posters { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px 10px; }
+  .scrim { padding: 0; align-items: flex-end; }
+  .sheet { position: relative; width: 100%; max-height: 94vh; border-radius: 16px 16px 0 0; border-width: 1px 0 0; animation: up 0.22s cubic-bezier(0.2, 0.7, 0.3, 1) both; }
+  /* The grab bar says the sheet can be dragged down to close. */
+  .sheet-grab { display: block; position: absolute; top: 7px; left: 50%; width: 40px; height: 5px; margin-left: -20px; border-radius: 3px; background: var(--faint); z-index: 2; pointer-events: none; }
+  /* The + sheet keeps one height across its tabs, so the tab row stays put when switching. */
+  .sheet.addsheet { min-height: 88vh; }
+  .main:focus { outline: none; }
+  .scrim.right { align-items: flex-end; }
+  .scrim.right .sheet { width: 100%; height: 94vh; border-radius: 16px 16px 0 0; border-width: 1px 0 0; }
+  .toasts { bottom: calc(var(--bar-h) + 14px + env(safe-area-inset-bottom)); }
+  .ihero { grid-template-columns: 92px minmax(0, 1fr); gap: 14px; padding: 18px 52px 14px 16px; }
+  .ihero .cv { width: 92px; }
+  .ihero h3 { font-size: 26px; }
+}
+
+/* ---------- search (nav on desktop, top bar on phone) ---------- */
+.search { position: relative; }
+.search svg { position: absolute; left: 11px; top: 50%; width: 17px; height: 17px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+.search .input { padding-left: 36px; min-height: 40px; }
+.nav .search { margin: 0 0 14px; }
+
+/* ---------- library ---------- */
+.viewhead .lib-seg { margin-left: auto; grid-template-columns: repeat(3, auto); align-self: center; }
+.viewhead .lib-seg.n4 { grid-template-columns: repeat(4, auto); }
+.lib-seg button { padding: 0 14px; min-height: 34px; }
+.lib-jump { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 8px; }
+.lib-jump.az .chip { min-width: 36px; justify-content: center; padding: 6px 8px; }
+.lib-jump .n { font-weight: 500; color: var(--muted); }
+.lib-group { scroll-margin-top: 16px; }
+.roster { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); column-gap: 24px; }
+.rrow { display: grid; grid-template-columns: 34px minmax(0, 1fr) auto; gap: 12px; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--line); text-align: left; width: 100%; }
+.rrow .cv { width: 34px; border-radius: 4px; }
+.rrow.sq .cv { aspect-ratio: 1; }
+.rrow b { display: block; font-size: var(--fs-card); line-height: 1.25; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rrow small { display: block; font-size: var(--fs-tiny); color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rrow:hover b { text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 859px) {
+  .phone-top .search { flex: 1.4; min-width: 0; }
+  .phone-top .search .input { min-height: 38px; }
+  .viewhead .lib-seg { margin-left: 0; flex-basis: 100%; grid-template-columns: repeat(3, 1fr); }
+  .viewhead .lib-seg.n4 { grid-template-columns: repeat(4, auto); }
+  .lib-jump { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 -16px 8px; padding: 0 16px; }
+  .lib-jump::-webkit-scrollbar { display: none; }
+  .lib-jump .chip { flex: none; }
+  .roster { grid-template-columns: 1fr; }
+  .lib-group .tierhead h2 { font-size: var(--fs-brand); }
+}

@@ -1,0 +1,33 @@
+# dependencies and build output
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# secrets: never commit
+.env
+.env.local
+.env.*.local
+
+# your data: the local database, backups, personal seed, exports
+data/
+media-log-export-*.json
+
+# owner-only notes: these name real titles and local paths, so they stay out of the repo
+BUILD-PROMPT.md
+MORNING.md
+HANDOFF.md
+HANDOFF-audit-log.md
+design/
+
+# local tooling and test artifacts
+.claude/
+test-results/
+shots/
+
+.DS_Store
+Thumbs.db
+
+# Generated logo and image concepts (large, not source)
+output/
