@@ -2,7 +2,7 @@
 
 *shiny things for eyes and ears*
 
-Media Magpie is a diary for everything you watch, listen to and read: TV, movies, music, podcasts and books, all in one place. Log what you finished, rate it on your own tiers, keep a queue of what's next, and see when your shows come back.
+Media Magpie tracks everything you watch, listen to and read: TV, movies, music, podcasts and books, all in one place. Keep a watchlist of what's next, log what you finished, rate it on your own tiers, and see when your shows come back.
 
 It also keeps **Shiny things**: the lines, ideas and small moments worth remembering, saved with where they came from, down to the episode and the minute. That's the magpie part.
 

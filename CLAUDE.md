@@ -1,6 +1,6 @@
 # Media Magpie: project notes for Claude
 
-A personal media diary (TV, movies, music, podcasts, books): history with rewatches, three-tier favorites, a three-section queue, and captures. **Reliability is the product: nothing logged may ever be lost.** Shareable as an open-source repo, so no personal data or secrets in git, ever.
+A personal media tracker (TV, movies, music, podcasts, books): history with rewatches, three-tier favorites, a three-section queue, and captures. **Reliability is the product: nothing logged may ever be lost.** Shareable as an open-source repo, so no personal data or secrets in git, ever.
 
 ## Stack
 
